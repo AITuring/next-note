@@ -1,6 +1,11 @@
 import { InitialData, Note } from "../lib/redis";
-import dayjs from "dayjs";
-export default async function SidebarNoteList({notes}: {notes: InitialData}) {
+import SidebarNoteItem from "./SidebarNoteItem";
+import { getAllNotes } from "../lib/redis";
+
+export default async function SidebarNoteList() {
+  const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+  await sleep(1000);
+  const notes = await getAllNotes()
   const arr = Object.entries(notes);
 
   if (arr.length === 0) {
@@ -14,11 +19,7 @@ export default async function SidebarNoteList({notes}: {notes: InitialData}) {
           const note: Note = JSON.parse(noteJson);
           return (
             <li key={noteId}>
-              <header className="sidebar-note-header">
-                <h3>{note.title}</h3>
-                <small>{dayjs(note.updateTime).format('YYYY-MM-DD hh:mm:ss')}</small>
-              </header>
-              {/* You might want to include the content or other note details here */}
+              <SidebarNoteItem note={note} noteId={noteId} />
             </li>
           );
         } catch (error) {

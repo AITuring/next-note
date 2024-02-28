@@ -1,11 +1,11 @@
-import React from "react";
+import React, {Suspense} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SidebarNoteList from "./SidebarNoteList";
-import { getAllNotes } from "../lib/redis";
+import EditButton from "./EditButton";
+import NoteListSkeleton from "./NoteListSkeleton";
 
 export default async function Sidebar() {
-  const notes = await getAllNotes();
 
   return (
     <>
@@ -23,11 +23,13 @@ export default async function Sidebar() {
             <strong>Next Notes</strong>
           </section>
         </Link>
-        <section className="sidebar-menu" role="menubar">
-          {/* SideSearchField */}
+        <section className="sidebar-menu">
+          <EditButton noteId={null}>New</EditButton>
         </section>
         <nav>
-          <SidebarNoteList notes={notes} />
+          <Suspense fallback={<NoteListSkeleton />}>
+            <SidebarNoteList />
+          </Suspense>
         </nav>
       </section>
     </>
