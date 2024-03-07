@@ -31,7 +31,7 @@ export async function getAllNotes(): Promise<{[key: string]: string}> {
 }
 
 export async function addNote(data: Omit<Note, 'id'>): Promise<string> {
-  const uuid = Date.now().toString();
+  const uuid = new Date().getTime().toString();
   await redis.hset('notes', uuid, JSON.stringify(data));
   return uuid;
 }

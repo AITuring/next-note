@@ -1,4 +1,4 @@
-import { InitialData, Note } from "../lib/redis";
+import { Note } from "../lib/redis";
 import SidebarNoteItem from "./SidebarNoteItem";
 import { getAllNotes } from "../lib/redis";
 
@@ -16,6 +16,8 @@ export default async function SidebarNoteList() {
     <ul className="notes-list">
       {arr.map(([noteId, noteJson]) => {
         try {
+          console.log('..................')
+          console.log(noteJson);
           const note: Note = JSON.parse(noteJson);
           return (
             <li key={noteId}>

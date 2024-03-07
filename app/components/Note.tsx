@@ -6,8 +6,6 @@ import type { Note } from '../lib/redis';
 export default function Note({ note, noteId }: { note: Note; noteId: string }) {
   const { title, content, updateTime } = note;
 
-  console.log(title, content, note);
-
   return (
     <div className="note">
       <div className="note-header">
