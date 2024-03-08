@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useFormStatus } from "react-dom";
 
-export default function SaveButton({formAction}: {formAction: (formAction: FormData) => void}) {
+export default function SaveButton({formAction}: {formAction: (formAction: FormData) => Promise<void>}) {
   const { pending } = useFormStatus();
   return (
     <button

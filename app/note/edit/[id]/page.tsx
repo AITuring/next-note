@@ -1,5 +1,6 @@
 import NoteEditor from '@/app/components/NoteEditor';
 import { getNote } from '@/app/lib/redis';
+import { sleep } from '@/app/lib/utils';
 import type { Note as NoteType } from "@/lib/redis";
 
 interface ParamsType {
@@ -9,8 +10,6 @@ interface ParamsType {
 export default async function EditPage({ params }: { params: ParamsType }) {
   const note: NoteType | null = await getNote(params.id);
 
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
   await sleep(1000);
 
   if (note === null) {

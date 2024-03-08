@@ -2,10 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { sleep } from "./lib/utils";
 import { addNote, updateNode, deleteNote, Note } from "./lib/redis";
 import { revalidatePath } from "next/cache";
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const schema = z.object({
   title: z.string(),
@@ -16,9 +15,7 @@ export async function saveNote(
   prevState: Note | null,
   formData: FormData,
 ) {
-  for (const [key, value] of formData) {
-    console.log(`${key}: ${value}`);
-  }
+
   const noteId = formData.get('noteId') as string;
 
   const data = {

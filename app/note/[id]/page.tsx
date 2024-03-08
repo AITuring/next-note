@@ -1,5 +1,6 @@
 import Note from "@/app/components/Note";
 import {getNote} from '@/lib/redis';
+import { sleep } from "@/app/lib/utils";
 import type { Note as NoteType } from "@/lib/redis";
 
 
@@ -11,7 +12,6 @@ export default async function NotePage({params}: {params: ParamsType}) {
   const noteId = params.id;
   const note: NoteType | null = await getNote(noteId);
 
-  const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
   await sleep(1000);
 
   if (note == null) {

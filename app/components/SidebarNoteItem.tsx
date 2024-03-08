@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import SidebarNoteItemContent from "./SidebarNoteItemContent";
+import SidebarNoteItemHeader from "./SidebarNoteItemHeader";
 import { Note } from "../lib/redis";
 
 export default function SidebarNoteItem({
@@ -19,10 +20,11 @@ export default function SidebarNoteItem({
           {content.slice(0, 20) || <i>(No content)</i>}...
         </p>
       }>
-        <header className="sidebar-note-header">
+        {/* <header className="sidebar-note-header">
           <strong>{title}</strong>
           <small>{dayjs(updateTime).format('YYYY-MM-DD hh:mm:ss')}</small>
-        </header>
+        </header> */}
+        <SidebarNoteItemHeader title={title} updateTime={updateTime as string} />
       </SidebarNoteItemContent>
 
   )
