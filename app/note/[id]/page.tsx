@@ -1,6 +1,6 @@
-import Note from "@/app/components/Note";
+import Note from "@/components/Note";
 import {getNote} from '@/lib/redis';
-import { sleep } from "@/app/lib/utils";
+import { sleep } from "@/lib/utils";
 import type { Note as NoteType } from "@/lib/redis";
 
 

@@ -5,6 +5,7 @@ import SidebarNoteList from "./SidebarNoteList";
 import SidebarSearchField from "./SidebarSearchField";
 import EditButton from "./EditButton";
 import NoteListSkeleton from "./NoteListSkeleton";
+import SidebarImport from "./SidebarImport";
 
 export default async function Sidebar() {
 
@@ -33,6 +34,7 @@ export default async function Sidebar() {
             <SidebarNoteList />
           </Suspense>
         </nav>
+        <SidebarImport />
       </section>
     </>
   )

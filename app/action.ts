@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { sleep } from "./lib/utils";
-import { addNote, updateNode, deleteNote, Note } from "./lib/redis";
+import { sleep } from "../lib/utils";
+import { addNote, updateNode, deleteNote, Note } from "../lib/redis";
 import { revalidatePath } from "next/cache";
 
 const schema = z.object({

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import NotePreview from './NotePreview';
 import SaveButton from './SaveButton';
 import DeleteButton from './DeleteButton';
-import { saveNote, delNote } from '../action';
+import { saveNote, delNote } from '../app/action';
 
 const initialState = {
   message: null,

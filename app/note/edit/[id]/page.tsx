@@ -1,6 +1,6 @@
-import NoteEditor from '@/app/components/NoteEditor';
-import { getNote } from '@/app/lib/redis';
-import { sleep } from '@/app/lib/utils';
+import NoteEditor from '@/components/NoteEditor';
+import { getNote } from '@/lib/redis';
+import { sleep } from '@/lib/utils';
 import type { Note as NoteType } from "@/lib/redis";
 
 interface ParamsType {
