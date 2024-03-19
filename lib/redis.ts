@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 
-// const redis = new Redis(process.env.REDIS_URL)
-const redis = new Redis()
+const redisUrl = process.env.REDIS_URL || 'redis://default:6379';
+const redis = new Redis(redisUrl)
 
 export interface Note {
   id: string;
