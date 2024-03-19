@@ -1,10 +1,15 @@
 'use server';
 
-import { redirect } from "next/navigation";
-import { z } from "zod";
-import { sleep } from "../lib/utils";
-import { addNote, updateNode, deleteNote, Note } from "../lib/redis";
-import { revalidatePath } from "next/cache";
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
+import { sleep } from '../lib/utils';
+import { addNote, updateNode, deleteNote, Note } from '../lib/redis';
+import { revalidatePath } from 'next/cache';
+
+type State = Note & {
+  message?: string;
+  errors?: z.ZodIssue[];
+};
 
 const schema = z.object({
   title: z.string(),
@@ -14,9 +19,12 @@ const schema = z.object({
 export async function saveNote(
   prevState: Note | null,
   formData: FormData,
-) {
-
+): Promise<State> {
   const noteId = formData.get('noteId') as string;
+
+  // for (var [a, b] of formData.entries()) {
+  //   console.log(a, b, '*****');
+  // }
 
   const data = {
     title: formData.get('title') as string,
@@ -27,15 +35,18 @@ export async function saveNote(
   const validated = schema.safeParse(data);
   if (!validated.success) {
     return {
+      id: noteId,
+      title: data.title,
+      content: data.content,
       errors: validated.error.issues,
     };
   }
 
   await sleep(2000);
 
-
   if (noteId) {
     await updateNode(noteId, data);
+
     revalidatePath('/', 'layout');
     redirect(`/note/${noteId}`);
   } else {
@@ -43,13 +54,11 @@ export async function saveNote(
     revalidatePath('/', 'layout');
     redirect(`/note/${res}`);
   }
-
-  return { message: 'Add Success!'}
 }
 
-export async function delNote(prevState:Note | null, formData: FormData) {
+export async function delNote(prevState: Note | null, formData: FormData) {
   const noteId = formData.get('noteId') as string;
   await deleteNote(noteId);
   revalidatePath('/', 'layout');
-  redirect("/");
+  redirect('/');
 }

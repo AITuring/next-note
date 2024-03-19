@@ -1,4 +1,5 @@
 import { useFormStatus } from "react-dom";
+import Image from "next/image";
 
 export default function DeleteButton({isDraft,formAction} : {
   isDraft: boolean,
@@ -12,7 +13,7 @@ export default function DeleteButton({isDraft,formAction} : {
         disabled={pending}
         formAction={formAction}
       >
-        <img src="/cross.svg" alt="trash" width={10} height={10} />
+        <Image src="/cross.svg" alt="trash" width={10} height={10} />
         Delete
       </button>
     )

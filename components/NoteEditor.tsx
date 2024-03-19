@@ -9,7 +9,11 @@ import DeleteButton from './DeleteButton';
 import { saveNote, delNote } from '../app/action';
 
 const initialState = {
-  message: null,
+  message: '',
+  errors: [],
+  id: '0',
+  title: '',
+  content: '',
 };
 
 export default function NoteEditor({
@@ -22,14 +26,15 @@ export default function NoteEditor({
   initialData: string;
 }) {
   const [saveState, saveFormAction] = useFormState(saveNote, initialState);
-  const [delState, delFormAction] = useFormState(delNote, initialState);
+  const [delState, delFormAction] = useFormState(delNote as any, initialState);
   const [title, setTitle] = useState(initialTitle);
   const [body, setBody] = useState(initialData);
   const isDraft = !noteId;
 
+
   useEffect(() => {
     if (saveState.errors) {
-      console.log(saveState.errors);
+      console.log(saveState);
     }
   }, [saveState])
 
@@ -43,7 +48,7 @@ export default function NoteEditor({
         </div>
         <div className="note-editor-menu">
           { saveState?.message }
-          { saveState?.errors && saveState.errors[0].message }
+          { saveState?.errors && saveState.errors[0]?.message }
         </div>
         <label htmlFor="note-title-input" className="offscreen">
           Enter a title for your note

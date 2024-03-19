@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { useFormStatus } from "react-dom";
 
-export default function SaveButton({formAction}: {formAction: (formAction: FormData) => Promise<void>}) {
+interface SaveButtonProps {
+  formAction: (formData: FormData) => void;
+}
+
+export default function SaveButton({formAction}: SaveButtonProps) {
   const { pending } = useFormStatus();
+
   return (
     <button
             className="note-editor-done"

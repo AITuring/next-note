@@ -7,8 +7,15 @@ import { getAllNotes } from "../lib/redis";
 
 export default async function SidebarNoteList() {
   await sleep(1000);
-  const notes = await getAllNotes()
+  const notes = await getAllNotes();
   const arr = Object.entries(notes);
+
+  arr.sort((a, b) => {
+    const noteDataA = JSON.parse(a[1]);
+    const noteDataB = JSON.parse(b[1]);
+    return new Date(noteDataB.updateTime).getTime() - new Date(noteDataA.updateTime).getTime();
+});
+
 
   if (arr.length === 0) {
     return <div className="notes-empty">No notes yet</div>;
