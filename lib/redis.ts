@@ -59,4 +59,26 @@ export async function deleteNote(uuid: string): Promise<void> {
   await redis.hdel('notes', uuid);
 }
 
+export interface User {
+  name: string;
+  username: string;
+}
+
+export async function addUser(username: string, password: string): Promise<User> {
+  await redis.hset('users', username, password);
+  return {
+    name: username, username
+  };
+}
+
+export async function getUser(username: string, password:string): Promise<User | number> {
+  const passwordFromDB = await redis.hget("users", username);
+  if (!passwordFromDB) return 0;
+  if (passwordFromDB !== password) return 1
+  return {
+    name: username,
+    username
+  }
+}
+
 export default redis;

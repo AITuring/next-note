@@ -1,11 +1,13 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+// TODO 文件上传 server action
 
 
 export default function SidebarImport() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target;
