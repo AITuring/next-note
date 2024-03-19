@@ -12,27 +12,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         username: { label: '邮箱', type: "text", placeholder: "请输入邮箱" },
         password: { label: '密码', type: "password", placeholder: "请输入密码"  }
       },
-      async authorize(credentials: Partial<Record<"username" | "password", unknown>>): Promise<User | null> {
-        let user: User | null = null;
+      // async authorize(credentials: Partial<Record<"username" | "password", unknown>>): Promise<User | null> {
+      //   let user: User | null = null;
 
-        // 调用 getUser 并处理返回值
-        const getUserResult = await getUser(credentials.username, credentials.password);
-        if (typeof getUserResult === 'number') {
-          if (getUserResult === 1) return null; // 密码错误
-          if (getUserResult === 0) {
-            // 用户注册
-            user = await addUser(credentials.username, credentials.password);
-          }
-        } else {
-          user = getUserResult;
-        }
+      //   // 调用 getUser 并处理返回值
+      //   const getUserResult = await getUser(credentials.username, credentials.password);
+      //   if (typeof getUserResult === 'number') {
+      //     if (getUserResult === 1) return null; // 密码错误
+      //     if (getUserResult === 0) {
+      //       // 用户注册
+      //       user = await addUser(credentials.username, credentials.password);
+      //     }
+      //   } else {
+      //     user = getUserResult;
+      //   }
 
-        if (!user) {
-          throw new Error("User was not found and could not be created.");
-        }
+      //   if (!user) {
+      //     throw new Error("User was not found and could not be created.");
+      //   }
 
-        return user;
-      }
+      //   return user;
+      // }
     }),
     Github({
       // clientId: process.env.GITHUB_ID,
